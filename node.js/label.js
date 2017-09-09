@@ -11,7 +11,8 @@ const fileName = './skunks.jpg';
 vision.labelDetection({ source: { filename: fileName } })
   .then((results) => {
     const labels = results[0].labelAnnotations;
-    console.log(labels);
+    var animal = labels[0].description;
+    console.log('Animal:' + animal);
   })
   .catch((err) => {
     console.error('ERROR:', err);
