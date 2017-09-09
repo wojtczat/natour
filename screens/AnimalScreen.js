@@ -1,9 +1,10 @@
 import React from 'react';
-import {StackNavigator, Button} from 'react-navigation';
+import {Button} from 'react-native';
 
 export default class AnimalScreen extends React.Component {
     render() {
-        return <Button title='hi' />
+         const { navigate } = this.props.navigation;
+        return <Button title='hi' onPress={() => navigate('Cam')}/>
 
     }
 }

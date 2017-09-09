@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import { Camera, MapView, Permissions } from 'expo';
 
 export default class HomeScreen extends React.Component {
@@ -14,9 +14,11 @@ export default class HomeScreen extends React.Component {
     }
   }
   render() {
-
+const { navigate } = this.props.navigation;
     return (
+
       <View style={styles.container}>
+        <Button title='hi' onPress={() => navigate('Info')}/>
         <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => { this.camera = ref; }}>
             <View
               style={{

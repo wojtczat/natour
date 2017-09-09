@@ -11,10 +11,12 @@ export default class MainScreen extends React.Component {
 }
 
 const Nav = StackNavigator({
-  Camera: {
+
+  Cam: {
     screen: HomeScreen
   },
-  Info: {
+      Info: {
     screen: AnimalScreen,
   },
+
 });
