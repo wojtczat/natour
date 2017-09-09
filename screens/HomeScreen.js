@@ -6,15 +6,25 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Camera',
   };
-  state = {
+  constructor(props) {
+    super(props);
+    this.state = {
     hasCameraPermission: true,
     type: Camera.Constants.Type.back,
   };
+  this.handlePress = this.handlePress.bind(this);
+  this.snap = this.snap.bind(this);
+}
   async snap() {
     if (this.camera) {
       const result = await this.camera.takePictureAsync();
       console.log(result);
     }
+  }
+  handlePress() {
+    const { navigate } = this.props.navigation;
+    this.snap();
+    navigate('Info', { species: 'Osprey' })
   }
   render() {
 const { navigate } = this.props.navigation;
@@ -52,7 +62,7 @@ const { navigate } = this.props.navigation;
                   alignSelf: 'flex-end',
                   alignItems: 'center',
                 }}
-                onPress={() => this.snap()}>
+                onPress={this.handlePress}>
                 <Text
                   style={{ fontSize: 18, marginBottom: 20, marginLeft: 250, color: 'white' }}>
                   {' '}Capture{' '}
