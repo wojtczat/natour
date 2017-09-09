@@ -15,7 +15,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 function setLocation(species, lat, long) {
-      firebase.database().ref('users/' + species).set({
+      firebase.database().ref('test4/' + species).push({
         latitude: lat,
         longitude: long
       });
