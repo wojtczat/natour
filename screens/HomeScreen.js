@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import { Camera, MapView, Permissions } from 'expo';
 
 export default class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Camera',
+  };
   state = {
     hasCameraPermission: true,
     type: Camera.Constants.Type.back,
@@ -18,7 +21,7 @@ const { navigate } = this.props.navigation;
     return (
 
       <View style={styles.container}>
-        <Button title='hi' onPress={() => navigate('Info')}/>
+        <Button title='Go to info' onPress={() => navigate('Info', { species: 'Osprey' })}/>
         <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => { this.camera = ref; }}>
             <View
               style={{
