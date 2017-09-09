@@ -7,11 +7,17 @@ export default class HomeScreen extends React.Component {
     hasCameraPermission: true,
     type: Camera.Constants.Type.back,
   };
-
+  async snap() {
+    if (this.camera) {
+      const result = await this.camera.takePictureAsync();
+      console.log(result);
+    }
+  }
   render() {
+
     return (
       <View style={styles.container}>
-        <Camera style={{ flex: 1 }} type={this.state.type}>
+        <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => { this.camera = ref; }}>
             <View
               style={{
                 flex: 1,
@@ -25,6 +31,8 @@ export default class HomeScreen extends React.Component {
                   alignItems: 'center',
                 }}
                 onPress={() => {
+                  this.snap();
+                  return;
                   this.setState({
                     type: this.state.type === Camera.Constants.Type.back
                       ? Camera.Constants.Type.front
@@ -34,6 +42,17 @@ export default class HomeScreen extends React.Component {
                 <Text
                   style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
                   {' '}Flip{' '}
+                </Text>
+              </TouchableOpacity><TouchableOpacity
+                style={{
+                  flex: 0.1,
+                  alignSelf: 'flex-end',
+                  alignItems: 'center',
+                }}
+                onPress={() => this.snap()}>
+                <Text
+                  style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                  {' '}Capture{' '}
                 </Text>
               </TouchableOpacity>
             </View>
