@@ -1,7 +1,25 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
-import { MapView, Permissions, Location } from 'expo'
+import { MapView, Permissions, Location } from 'expo';
+import * as firebase from 'firebase';
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCXbOsdGeX0RwN-rggwomI5Ps7nSDXXioQ",
+  authDomain: "fir-test-c4a21.firebaseapp.com",
+  databaseURL: "fir-test-c4a21.firebaseio.com",
+  storageBucket: "fir-test-c4a21.appspot.com"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+function setLocation(species, lat, long) {
+      firebase.database().ref('users/' + species).set({
+        latitude: lat,
+        longitude: long
+      });
+}
 
 export default class LinksScreen extends React.Component {
   state = {
@@ -48,7 +66,7 @@ export default class LinksScreen extends React.Component {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-        />
+        >{setLocation("sample", this.state.location.coords.latitude, this.state.location.coords.longitude)}</MapView>
       );
     }
   }
