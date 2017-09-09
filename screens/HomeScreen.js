@@ -31,8 +31,6 @@ export default class HomeScreen extends React.Component {
                   alignItems: 'center',
                 }}
                 onPress={() => {
-                  this.snap();
-                  return;
                   this.setState({
                     type: this.state.type === Camera.Constants.Type.back
                       ? Camera.Constants.Type.front
@@ -40,7 +38,7 @@ export default class HomeScreen extends React.Component {
                   });
                 }}>
                 <Text
-                  style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                  style={{ fontSize: 18, marginBottom: 490, marginLeft: 600, color: 'white' }}>
                   {' '}Flip{' '}
                 </Text>
               </TouchableOpacity><TouchableOpacity
@@ -51,7 +49,7 @@ export default class HomeScreen extends React.Component {
                 }}
                 onPress={() => this.snap()}>
                 <Text
-                  style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                  style={{ fontSize: 18, marginBottom: 20, marginLeft: 250, color: 'white' }}>
                   {' '}Capture{' '}
                 </Text>
               </TouchableOpacity>
