@@ -7,28 +7,51 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Camera',
   };
+
   constructor(props) {
     super(props);
     this.state = {
-    hasCameraPermission: true,
-    type: Camera.Constants.Type.back,
-    label: 'Test'
-  };
-  this.handlePress = this.handlePress.bind(this);
-  this.snap = this.snap.bind(this);
-}
+      hasCameraPermission: true,
+      type: Camera.Constants.Type.back,
+      label: 'Test'
+    };
+    this.handlePress = this.handlePress.bind(this);
+    this.snap = this.snap.bind(this);
+  }
+
   async snap() {
     if (this.camera) {
       const result = await this.camera.takePictureAsync();
-      callApi(result);
+      this.callApi(result);
       console.log(result);
     }
   }
+
   handlePress() {
     const { navigate } = this.props.navigation;
     this.snap();
     navigate('Info', { species: 'Osprey' })
   }
+
+  callApi = (uri) => {
+    vision.init({auth: 'AIzaSyArZ4nqFFWNjytStuWeMpGU5SCgv6q8XEQ'})
+    const req = new vision.Request({
+      image: new vision.Image(uri),
+      features: [
+        new vision.Feature('LABEL_DETECTION', 1),
+      ]
+    });
+
+    vision.annotate(req).then((res) => {
+      console.log(res.responses)
+      this.setState({label: JSON.stringify(res.responses)});
+    }, (e) => {
+      console.log('Error ' , e)
+    })
+
+
+  };
+
   render() {
 const { navigate } = this.props.navigation;
     return (
@@ -58,7 +81,7 @@ const { navigate } = this.props.navigation;
                   });
                 }}>
                 <Text
-                  style={{ fontSize: 18, marginBottom: 10, align: 'center', color: 'white' }}>
+                  style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
                   {' '}Flip{' '}
                 </Text>
               </TouchableOpacity><TouchableOpacity
@@ -79,26 +102,6 @@ const { navigate } = this.props.navigation;
     );
   }
 }
-
-callApi = (uri) => {
-
-  vision.init({auth: 'AIzaSyArZ4nqFFWNjytStuWeMpGU5SCgv6q8XEQ'})
-  const req = new vision.Request({
-    image: new vision.Image(uri),
-    features: [
-      new vision.Feature('LABEL_DETECTION', 1),
-    ]
-  });
-
-  vision.annotate(req).then((res) => {
-    console.log(res.responses)
-    this.setState({label: JSON.stringify(res.responses)});
-  }, (e) => {
-    console.log('Error ' , e)
-  })
-
-
-};
 
 const styles = StyleSheet.create({
   container: {

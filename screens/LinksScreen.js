@@ -49,6 +49,7 @@ export default class LinksScreen extends React.Component {
     this._getLocationAsync();
   };
 
+  
 
   render() {
     if (this.state.isLoading) {
