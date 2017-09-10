@@ -23,8 +23,32 @@ export default class AnimalScreen extends React.Component {
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.species}`,
   });
+constructor(props) {
+    super(props);
+
+    this.state = {
+      latitude: null,
+      longitude: null,
+      error: null,
+    };
+  }
+
+componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
+        });
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+  }
     render() {
          const { navigate } = this.props.navigation;
+         console.log(this.state);
         return <Button title={'Take another picture'} onPress={() => navigate('Cam')}/>
 
     }

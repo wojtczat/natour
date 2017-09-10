@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { MapView, Permissions, Location } from 'expo';
+
 // import * as firebase from 'firebase';
 
 // // Initialize Firebase
