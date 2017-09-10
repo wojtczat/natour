@@ -13,9 +13,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 function setLocation(species, lat, long) {
-      firebase.database().ref('test4/' + species).push({
-        latitude: lat,
-        longitude: long
+      firebase.database().ref(species).push({
+        latitude: 0,
+        longitude: 0
       });
 }
 
@@ -30,23 +30,26 @@ constructor(props) {
     this.state = {
       latitude: null,
       longitude: null,
-      error: null,
     };
+    // this.getPosition = this.getPosition.bind(this)
   }
 
 componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        this.setState({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          error: null,
-        });
+        setLocation("sample", position.coords.latitude, position.coords.longitude);
       },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-}
+  }
+
+// getPosition() {
+//     var position = navigator.geolocation.getCurrentPosition();
+//     this.state.latitude = position.coords.latitude;
+//     this.state.longitude = position.coords.longitude;
+//     setLocation("sample", position.coords.latitude, position.coords.longitude);
+// }
     render() {
          const { navigate } = this.props.navigation;
         return <Button title={'Take another picture'} onPress={() => navigate('Cam')}></Button>

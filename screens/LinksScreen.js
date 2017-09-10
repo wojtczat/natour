@@ -50,7 +50,6 @@ export default class LinksScreen extends React.Component {
             longitudeDelta: 0.0421,
           }}
         >
-        {setLocation("sample", this.state.location.coords.latitude, this.state.location.coords.longitude)}
         </MapView>
       );
     }
