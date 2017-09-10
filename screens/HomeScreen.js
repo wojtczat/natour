@@ -1,14 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import { Camera, MapView, Permissions } from 'expo';
 import vision from "react-cloud-vision-api";
 
 export default class HomeScreen extends React.Component {
-  state = {
+  static navigationOptions = {
+    title: 'Camera',
+  };
+  constructor(props) {
+    super(props);
+    this.state = {
     hasCameraPermission: true,
     type: Camera.Constants.Type.back,
     label: 'Test'
   };
+  this.handlePress = this.handlePress.bind(this);
+  this.snap = this.snap.bind(this);
+}
   async snap() {
     if (this.camera) {
       const result = await this.camera.takePictureAsync();
@@ -16,10 +24,17 @@ export default class HomeScreen extends React.Component {
       console.log(result);
     }
   }
+  handlePress() {
+    const { navigate } = this.props.navigation;
+    this.snap();
+    navigate('Info', { species: 'Osprey' })
+  }
   render() {
-
+const { navigate } = this.props.navigation;
     return (
+
       <View style={styles.container}>
+        <Button title='Go to info' onPress={() => navigate('Info', { species: 'Osprey' })}/>
         <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => { this.camera = ref; }}>
             <View
               style={{
@@ -52,7 +67,7 @@ export default class HomeScreen extends React.Component {
                   alignSelf: 'flex-end',
                   alignItems: 'center',
                 }}
-                onPress={() => this.snap()}>
+                onPress={this.handlePress}>
                 <Text
                   style={{ fontSize: 18, marginBottom: 20, marginLeft: 250, color: 'white' }}>
                   {' '}Capture{' '}

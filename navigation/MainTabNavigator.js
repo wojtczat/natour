@@ -5,13 +5,13 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 
 import Colors from '../constants/Colors';
 
-import HomeScreen from '../screens/HomeScreen';
+import MainScreen from '../screens/MainScreen';
 import LinksScreen from '../screens/LinksScreen';
 
 export default TabNavigator(
   {
     Camera: {
-      screen: HomeScreen,
+      screen: MainScreen,
     },
     Map: {
       screen: LinksScreen,
