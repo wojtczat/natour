@@ -1,15 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera, MapView, Permissions } from 'expo';
+import vision from "react-cloud-vision-api";
 
 export default class HomeScreen extends React.Component {
   state = {
     hasCameraPermission: true,
     type: Camera.Constants.Type.back,
+    label: 'Test'
   };
   async snap() {
     if (this.camera) {
       const result = await this.camera.takePictureAsync();
+      callApi(result);
       console.log(result);
     }
   }
@@ -31,6 +34,8 @@ export default class HomeScreen extends React.Component {
                   alignItems: 'center',
                 }}
                 onPress={() => {
+                  this.snap();
+                  return;
                   this.setState({
                     type: this.state.type === Camera.Constants.Type.back
                       ? Camera.Constants.Type.front
@@ -38,7 +43,7 @@ export default class HomeScreen extends React.Component {
                   });
                 }}>
                 <Text
-                  style={{ fontSize: 18, marginBottom: 490, marginLeft: 600, color: 'white' }}>
+                  style={{ fontSize: 18, marginBottom: 10, align: 'center', color: 'white' }}>
                   {' '}Flip{' '}
                 </Text>
               </TouchableOpacity><TouchableOpacity
@@ -59,6 +64,26 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+callApi = (uri) => {
+
+  vision.init({auth: 'AIzaSyArZ4nqFFWNjytStuWeMpGU5SCgv6q8XEQ'})
+  const req = new vision.Request({
+    image: new vision.Image(uri),
+    features: [
+      new vision.Feature('LABEL_DETECTION', 1),
+    ]
+  });
+
+  vision.annotate(req).then((res) => {
+    console.log(res.responses)
+    this.setState({label: JSON.stringify(res.responses)});
+  }, (e) => {
+    console.log('Error ' , e)
+  })
+
+
+};
 
 const styles = StyleSheet.create({
   container: {
