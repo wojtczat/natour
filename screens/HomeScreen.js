@@ -57,16 +57,16 @@ const { navigate } = this.props.navigation;
 
       <View style={styles.container}>
         <Button title='Go to info' onPress={() => navigate('Info', { species: "Info" })}/>
-        <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => { this.camera = ref; }}>
+        <Camera style={{ flex: 5 }} type={this.state.type} ref={ref => { this.camera = ref; }}>
             <View
               style={{
-                flex: 1,
+                flex: 2,
                 backgroundColor: 'transparent',
                 flexDirection: 'row',
               }}>
               <TouchableOpacity
                 style={{
-                  flex: 0.1,
+                  flex: 0.5,
                   alignSelf: 'flex-end',
                   alignItems: 'center',
                 }}
@@ -94,6 +94,6 @@ const { navigate } = this.props.navigation;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 5
   },
 });

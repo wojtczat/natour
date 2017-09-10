@@ -8,7 +8,7 @@ export default class LinksScreen extends React.Component {
   state = {
     isLoading: true,
     location: null,
-    markers: [{title: , description: 'test', lat: 35, long: -70}],
+    markers: [{title: "Giraffe", description: 'The tallest living terrestrial animals', lat: 5.1521, long: 46.1996}],
   };
 
   static navigationOptions = {
