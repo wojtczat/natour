@@ -20,9 +20,6 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {Platform.OS === 'android' &&
-            <View style={styles.statusBarUnderlay} />}
           <RootNavigation />
         </View>
       );
@@ -64,7 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   statusBarUnderlay: {
-    height: 24,
+    height: 0,
     backgroundColor: 'rgba(0,0,0,0.2)',
   },
 });

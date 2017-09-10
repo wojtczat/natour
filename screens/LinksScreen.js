@@ -2,12 +2,13 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { MapView, Permissions, Location } from 'expo';
-
+import './HomeScreen.js';
 
 export default class LinksScreen extends React.Component {
   state = {
     isLoading: true,
     location: null,
+    markers: [{title: , description: 'test', lat: 35, long: -70}],
   };
 
   static navigationOptions = {
@@ -51,6 +52,15 @@ export default class LinksScreen extends React.Component {
             longitudeDelta: 0.0421,
           }}
         >
+
+          {this.state.markers.map(marker => (
+          <MapView.Marker
+            coordinate={{latitude: marker.lat, longitude: marker.long}}
+            title={marker.title}
+            description={marker.description}
+          />
+        ))}
+
         </MapView>
       );
     }

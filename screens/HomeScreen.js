@@ -19,7 +19,7 @@ export default class HomeScreen extends React.Component {
     this.snap = this.snap.bind(this);
   }
 
-  async snap() {
+  snap = async () => {
     if (this.camera) {
       const result = await this.camera.takePictureAsync();
       this.callApi(result);
@@ -42,7 +42,6 @@ export default class HomeScreen extends React.Component {
 
     vision.annotate(req).then((res) => {
       const { navigate } = this.props.navigation; 
-      console.log(res.responses)
       this.setState({label: res.responses[0].labelAnnotations[0].description});
       navigate('Info', { species:  this.state.label})
     }, (e) => {
@@ -57,7 +56,7 @@ const { navigate } = this.props.navigation;
     return (
 
       <View style={styles.container}>
-        <Button title='Go to info' onPress={() => navigate('Info', { species: '' })}/>
+        <Button title='Go to info' onPress={() => navigate('Info', { species: "Info" })}/>
         <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => { this.camera = ref; }}>
             <View
               style={{
@@ -71,10 +70,7 @@ const { navigate } = this.props.navigation;
                   alignSelf: 'flex-end',
                   alignItems: 'center',
                 }}
-                onPress={() => {
-                  this.snap();
-                  return;
-                }}>
+                onPress={this.snap}>
               </TouchableOpacity>
 
               <TouchableOpacity
