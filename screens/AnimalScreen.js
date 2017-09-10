@@ -31,25 +31,19 @@ constructor(props) {
       latitude: null,
       longitude: null,
     };
-    // this.getPosition = this.getPosition.bind(this)
-  }
+}
 
 componentDidMount() {
+    let title = this.props.navigation.state.params.species;
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setLocation("sample", position.coords.latitude, position.coords.longitude);
+        setLocation(title, position.coords.latitude, position.coords.longitude);
       },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
   }
 
-// getPosition() {
-//     var position = navigator.geolocation.getCurrentPosition();
-//     this.state.latitude = position.coords.latitude;
-//     this.state.longitude = position.coords.longitude;
-//     setLocation("sample", position.coords.latitude, position.coords.longitude);
-// }
     render() {
          const { navigate } = this.props.navigation;
         return <Button title={'Take another picture'} onPress={() => navigate('Cam')}></Button>
