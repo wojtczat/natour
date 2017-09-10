@@ -49,7 +49,7 @@ export default class LinksScreen extends React.Component {
     this._getLocationAsync();
   };
 
-  
+
 
   render() {
     if (this.state.isLoading) {
@@ -76,7 +76,7 @@ export default class LinksScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
+    paddingTop: 0,
     backgroundColor: '#fff',
   },
 });

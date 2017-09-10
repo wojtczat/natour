@@ -5,7 +5,7 @@ import vision from "react-cloud-vision-api";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'Camera',
+    title: 'Identify',
   };
 
   constructor(props) {
@@ -23,14 +23,12 @@ export default class HomeScreen extends React.Component {
     if (this.camera) {
       const result = await this.camera.takePictureAsync();
       this.callApi(result);
-      console.log(result);
+      result;
     }
   }
 
   handlePress() {
-    const { navigate } = this.props.navigation;
     this.snap();
-    navigate('Info', { species: 'Osprey' })
   }
 
   callApi = (uri) => {
@@ -43,8 +41,10 @@ export default class HomeScreen extends React.Component {
     });
 
     vision.annotate(req).then((res) => {
+      const { navigate } = this.props.navigation; 
       console.log(res.responses)
-      this.setState({label: JSON.stringify(res.responses)});
+      this.setState({label: res.responses[0].labelAnnotations[0].description});
+      navigate('Info', { species:  this.state.label})
     }, (e) => {
       console.log('Error ' , e)
     })
@@ -57,7 +57,7 @@ const { navigate } = this.props.navigation;
     return (
 
       <View style={styles.container}>
-        <Button title='Go to info' onPress={() => navigate('Info', { species: 'Osprey' })}/>
+        <Button title='Go to info' onPress={() => navigate('Info', { species: '' })}/>
         <Camera style={{ flex: 1 }} type={this.state.type} ref={ref => { this.camera = ref; }}>
             <View
               style={{
@@ -74,25 +74,18 @@ const { navigate } = this.props.navigation;
                 onPress={() => {
                   this.snap();
                   return;
-                  this.setState({
-                    type: this.state.type === Camera.Constants.Type.back
-                      ? Camera.Constants.Type.front
-                      : Camera.Constants.Type.back,
-                  });
                 }}>
-                <Text
-                  style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                  {' '}Flip{' '}
-                </Text>
-              </TouchableOpacity><TouchableOpacity
+              </TouchableOpacity>
+
+              <TouchableOpacity
                 style={{
-                  flex: 0.1,
+                  flex: 0,
                   alignSelf: 'flex-end',
                   alignItems: 'center',
                 }}
                 onPress={this.handlePress}>
                 <Text
-                  style={{ fontSize: 18, marginBottom: 20, marginLeft: 250, color: 'white' }}>
+                  style={{ fontSize: 18, marginBottom: 20, color: 'white' }}>
                   {' '}Capture{' '}
                 </Text>
               </TouchableOpacity>
