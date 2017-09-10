@@ -18,6 +18,7 @@
     "react": "16.0.0-alpha.12",
     "react-cloud-vision-api": "^0.3.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
+    "react-native-location": "^0.27.0",
     "react-navigation": "^1.0.0-beta.12"
   },
   "devDependencies": {
