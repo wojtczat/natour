@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Hello Expo!",
   "author": null,
-  "license": "",
+  "license": "UNLICENSED",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "test": "node ./node_modules/jest/bin/jest.js --watch"
@@ -11,17 +11,6 @@
   "jest": {
     "preset": "jest-expo"
   },
-  "dependencies": {
-    "@expo/samples": "^2.0.2",
-    "expo": "^20.0.0",
-    "firebase": "^4.3.1",
-    "react": "16.0.0-alpha.12",
-    "react-cloud-vision-api": "^0.3.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
-    "react-native-location": "^0.27.0",
-    "react-navigation": "^1.0.0-beta.12"
-  },
-  "devDependencies": {
-    "jest-expo": "^20.0.0"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
